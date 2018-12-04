@@ -5,6 +5,7 @@ import apiKey from "./config/index";
 import Header from "./components/Header";
 import CityInput from "./components/CityInput";
 import WeatherInfo from "./components/WeatherInfo";
+import Map from "./components/Map";
 
 class App extends Component {
   state = {
@@ -35,6 +36,7 @@ class App extends Component {
         <Header />
         <CityInput getWeatherByCity={this.getWeatherByCity} />
         <WeatherInfo cityName={cityName} mainTemp={mainTemp} maxTemp={maxTemp} minTemp={minTemp} windSpeed={windSpeed} weatherDesc={weatherDesc} sunrise={sunrise} sunset={sunset} weatherIcon={weatherIcon} />
+        <Map />
       </div>
     );
   }
