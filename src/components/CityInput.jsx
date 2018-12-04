@@ -7,7 +7,7 @@ class CityInput extends Component {
   render() {
     return (
       <div>
-        <form type="submit" onClick={this.handleSubmit}>
+        <form type="submit" onSubmit={this.handleSubmit}>
           <input
             type="text"
             id="cityInput"
@@ -21,14 +21,13 @@ class CityInput extends Component {
   }
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log("send to api");
+    //console.log("call api func with query:", this.state.cityInput);
+    this.props.getWeatherByCity(this.state.cityInput);
     this.setState({ cityInput: "" });
   };
   handleChange = (event) => {
     const { value, id } = event.target;
-    this.setState({ [id]: value }, () => {
-      console.log(this.state.cityInput);
-    });
+    this.setState({ [id]: value });
   };
 }
 
