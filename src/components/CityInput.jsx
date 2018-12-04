@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class CityInput extends Component {
   state = {
@@ -29,6 +30,10 @@ class CityInput extends Component {
     const { value, id } = event.target;
     this.setState({ [id]: value });
   };
+}
+
+CityInput.propTypes = {
+  getWeatherByCity: PropTypes.func.isRequired
 }
 
 export default CityInput;
