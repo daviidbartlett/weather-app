@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const WeatherInfo = ({ cityName, mainTemp, maxTemp, minTemp, windSpeed, weatherDesc, sunrise, sunset }) => {
+const WeatherInfo = ({ cityName, mainTemp, maxTemp, minTemp, windSpeed, weatherDesc, sunrise, sunset, weatherIcon }) => {
   return (
     <div>
       <ul>
@@ -11,6 +11,7 @@ const WeatherInfo = ({ cityName, mainTemp, maxTemp, minTemp, windSpeed, weatherD
         <li>Min temperature for today: {minTemp}°C</li>
         <li>Windspeed is: {windSpeed}m/s</li>
         <li>The weather today is: {weatherDesc}</li>
+        <li><img src={`http://openweathermap.org/img/w/${weatherIcon}.png`} alt={weatherDesc}></img></li>
         <li>Sunrise is at: {sunrise}</li>
         <li>Sunset is at: {sunset}</li>
       </ul>
@@ -25,8 +26,9 @@ WeatherInfo.propTypes = {
   minTemp: PropTypes.number.isRequired,
   windSpeed: PropTypes.number.isRequired,
   weatherDesc: PropTypes.string.isRequired,
-  sunrise: PropTypes.number.isRequired,
-  sunset: PropTypes.number.isRequired
+  sunrise: PropTypes.string.isRequired,
+  sunset: PropTypes.string.isRequired,
+  weatherIcon: PropTypes.string.isRequired
 }
 
 export default WeatherInfo;

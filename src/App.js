@@ -14,16 +14,27 @@ class App extends Component {
     minTemp: 0,
     windSpeed: 0,
     weatherDesc: "",
-    sunrise: 0,
-    sunset: 0
+    sunrise: "",
+    sunset: "",
+    weatherIcon: "01d"
   };
   render() {
-    const { cityName, mainTemp, maxTemp, minTemp, windSpeed, weatherDesc, sunrise, sunset } = this.state;
+    const {
+      cityName,
+      mainTemp,
+      maxTemp,
+      minTemp,
+      windSpeed,
+      weatherDesc,
+      sunrise,
+      sunset,
+      weatherIcon
+    } = this.state;
     return (
       <div className="App">
         <Header />
         <CityInput getWeatherByCity={this.getWeatherByCity} />
-        <WeatherInfo cityName={cityName} mainTemp={mainTemp} maxTemp={maxTemp} minTemp={minTemp} windSpeed={windSpeed} weatherDesc={weatherDesc} sunrise={sunrise} sunset={sunset} />
+        <WeatherInfo cityName={cityName} mainTemp={mainTemp} maxTemp={maxTemp} minTemp={minTemp} windSpeed={windSpeed} weatherDesc={weatherDesc} sunrise={sunrise} sunset={sunset} weatherIcon={weatherIcon} />
       </div>
     );
   }
@@ -37,7 +48,13 @@ class App extends Component {
     const response = await axios.get(
       `http://api.openweathermap.org/data/2.5/weather?q=${cityParam},uk&APPID=${apiKey}`
     );
-    const { name, main: { temp, temp_max, temp_min }, wind: { speed }, weather, sys: { sunrise, sunset } } = response.data;
+    const {
+      name,
+      main: { temp, temp_max, temp_min },
+      wind: { speed },
+      weather,
+      sys: { sunrise, sunset }
+    } = response.data;
     const cityNameRes = name;
     const mainTempRes = Math.round(temp - 273.15);
     const maxTempRes = Math.round(temp_max - 273.15);
@@ -46,8 +63,19 @@ class App extends Component {
     const weatherDescRes = weather[0].description;
     const sunriseRes = this.toTimeString(sunrise);
     const sunsetRes = this.toTimeString(sunset);
-    this.setState({ cityName: cityNameRes, mainTemp: mainTempRes, maxTemp: maxTempRes, minTemp: minTempRes, windSpeed: windSpeedRes, weatherDesc: weatherDescRes, sunrise: sunriseRes, sunset: sunsetRes }, () => {
-      console.log(response);
+    const weatherIconRes = weather[0].icon;
+    this.setState({
+      cityName: cityNameRes,
+      mainTemp: mainTempRes,
+      maxTemp: maxTempRes,
+      minTemp: minTempRes,
+      windSpeed: windSpeedRes,
+      weatherDesc: weatherDescRes,
+      sunrise: sunriseRes,
+      sunset: sunsetRes,
+      weatherIcon: weatherIconRes
+    }, () => {
+      console.log(this.state.weatherIcon);
     })
   };
 }
