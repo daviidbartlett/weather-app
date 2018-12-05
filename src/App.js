@@ -104,6 +104,11 @@ class App extends Component {
       }
     );
   };
+  onMapClick = () => {
+    this.map.on("click", function(e) {
+      alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng);
+    });
+  };
 }
 
 export default App;
