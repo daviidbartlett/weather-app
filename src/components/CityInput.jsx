@@ -9,6 +9,7 @@ class CityInput extends Component {
     return (
       <div id="input">
         <form type="submit" onSubmit={this.handleSubmit}>
+          <label htmlFor="cityInput" id="cityInputLabel">Search for current weather:</label>
           <input
             type="text"
             id="cityInput"

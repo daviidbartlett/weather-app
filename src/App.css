@@ -29,6 +29,13 @@
   margin-top: 3px;
 }
 
+button {
+  border-radius: 20%;
+  margin: 3px;
+  font-family: "Source Sans Pro", sans-serif;
+  background-color: white;
+}
+
 #input {
   display: flex;
   justify-content: center;
@@ -36,6 +43,8 @@
   padding-top: 10px;
   width: 100%;
   padding-bottom: 10px;
+  font-family: "Source Sans Pro", sans-serif;
+  color: #d6dbd2;
 
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
