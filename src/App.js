@@ -49,7 +49,7 @@ class App extends Component {
             sunset={sunset}
             weatherIcon={weatherIcon}
           />
-          <Map coords={coords} addNewState={this.addNewState} />
+          <Map coords={coords} addClickableCoords={this.addClickableCoords} />
         </div>
       </div>
     );
@@ -99,14 +99,48 @@ class App extends Component {
       coords: [+latRes, +lonRes]
     });
   };
-  addNewState = (thing) => {
-    console.log("XXXXXXXXX", thing);
+
+  getWeatherByCoordinates = async (coords) => {
+    const latCoords = coords[0];
+    const lngCoords = coords[1];
+    // console.log(latCoords, lngCoords);
+    const response = await axios.get(
+      `http://api.openweathermap.org/data/2.5/weather?lat=${latCoords}&lon=${lngCoords}&APPID=${apiKey}`
+    );
+    console.log(response);
+    const {
+      name,
+      main: { temp, temp_max, temp_min },
+      wind: { speed },
+      weather,
+      sys: { sunrise, sunset }
+    } = response.data;
+    const cityNameRes = name;
+    const mainTempRes = Math.round(temp - 273.15);
+    const maxTempRes = Math.round(temp_max - 273.15);
+    const minTempRes = Math.round(temp_min - 273.15);
+    const windSpeedRes = speed;
+    const weatherDescRes = weather[0].description;
+    const sunriseRes = this.toTimeString(sunrise);
+    const sunsetRes = this.toTimeString(sunset);
+    const weatherIconRes = weather[0].icon;
+    this.setState({
+      cityName: cityNameRes,
+      mainTemp: mainTempRes,
+      maxTemp: maxTempRes,
+      minTemp: minTempRes,
+      windSpeed: windSpeedRes,
+      weatherDesc: weatherDescRes,
+      sunrise: sunriseRes,
+      sunset: sunsetRes,
+      weatherIcon: weatherIconRes
+    });
   };
 
-  onMapClick = () => {
-    this.map.on("click", function(e) {
-      alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng);
-    });
+  addClickableCoords = (latLngObj) => {
+    this.setState({
+      coords: [latLngObj.lat, latLngObj.lng]
+    }, () => { this.getWeatherByCoordinates(this.state.coords) })
   };
 }
 

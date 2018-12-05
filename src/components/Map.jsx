@@ -1,15 +1,3 @@
-// import React from "react";
-// import L from "leaflet";
-
-// const Map = (props) => {
-//     const position = [51.505, -0.09]
-//     const myMap = L.map('mapid').setView(position, 13)
-
-//     return <div id="mapid"></div>
-// }
-
-// export default Map;
-
 import React from "react";
 import L from "leaflet";
 class Map extends React.Component {
@@ -19,7 +7,7 @@ class Map extends React.Component {
     this.makeMap(this.props.coords, 1);
   }
   componentDidUpdate(prevProps, prevState) {
-    console.log("updated", prevProps, this.props);
+    // console.log("updated", prevProps, this.props);
     if (prevProps !== this.props) {
       this.map.remove();
       this.makeMap(this.props.coords, 6);
@@ -40,9 +28,8 @@ class Map extends React.Component {
   };
   onMapClick = () => {
     this.map.on("click", (e) => {
-      const foo = e.latlng;
-      // console.log(foo);
-      this.props.addNewState(foo);
+      const coordinates = e.latlng;
+      this.props.addClickableCoords(coordinates);
     });
   };
   render() {
