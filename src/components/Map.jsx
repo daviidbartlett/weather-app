@@ -13,11 +13,23 @@
 import React from "react";
 import L from "leaflet";
 class Map extends React.Component {
+  state = {};
   componentDidMount() {
     // create map
+    this.makeMap(this.props.coords, 1);
+  }
+  componentDidUpdate(prevProps, prevState) {
+    console.log("updated", prevProps, this.props);
+    if (prevProps !== this.props) {
+      this.map.remove();
+      this.makeMap(this.props.coords, 6);
+      this.marker = L.marker(this.props.coords).addTo(this.map);
+    }
+  }
+  makeMap = (coords, zoom) => {
     this.map = L.map("map", {
-      center: [49.8419, 24.0315],
-      zoom: 16,
+      center: coords,
+      zoom: zoom,
       layers: [
         L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
           attribution:
@@ -25,8 +37,7 @@ class Map extends React.Component {
         })
       ]
     });
-    // this.marker = L.marker(this.props.markerPosition).addTo(this.map);
-  }
+  };
   render() {
     return <div id="map" />;
   }

@@ -17,7 +17,8 @@ class App extends Component {
     weatherDesc: "",
     sunrise: "",
     sunset: "",
-    weatherIcon: "01d"
+    weatherIcon: "01d",
+    coords: [0, 0]
   };
   render() {
     const {
@@ -29,7 +30,8 @@ class App extends Component {
       weatherDesc,
       sunrise,
       sunset,
-      weatherIcon
+      weatherIcon,
+      coords
     } = this.state;
     return (
       <div className="App">
@@ -47,7 +49,7 @@ class App extends Component {
             sunset={sunset}
             weatherIcon={weatherIcon}
           />
-          <Map />
+          <Map coords={coords} />
         </div>
       </div>
     );
@@ -69,7 +71,8 @@ class App extends Component {
       main: { temp, temp_max, temp_min },
       wind: { speed },
       weather,
-      sys: { sunrise, sunset }
+      sys: { sunrise, sunset },
+      coord: { lon, lat }
     } = response.data;
     const cityNameRes = name;
     const mainTempRes = Math.round(temp - 273.15);
@@ -80,6 +83,9 @@ class App extends Component {
     const sunriseRes = this.toTimeString(sunrise);
     const sunsetRes = this.toTimeString(sunset);
     const weatherIconRes = weather[0].icon;
+    const lonRes = lon;
+    const latRes = lat;
+
     this.setState(
       {
         cityName: cityNameRes,
@@ -90,10 +96,11 @@ class App extends Component {
         weatherDesc: weatherDescRes,
         sunrise: sunriseRes,
         sunset: sunsetRes,
-        weatherIcon: weatherIconRes
+        weatherIcon: weatherIconRes,
+        coords: [+latRes, +lonRes]
       },
       () => {
-        console.log(this.state.weatherIcon);
+        console.log(this.state.coords);
       }
     );
   };
