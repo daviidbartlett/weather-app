@@ -34,17 +34,31 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <CityInput getWeatherByCity={this.getWeatherByCity} />
-        <WeatherInfo cityName={cityName} mainTemp={mainTemp} maxTemp={maxTemp} minTemp={minTemp} windSpeed={windSpeed} weatherDesc={weatherDesc} sunrise={sunrise} sunset={sunset} weatherIcon={weatherIcon} />
-        <Map />
+        <div id="container">
+          <CityInput getWeatherByCity={this.getWeatherByCity} />
+          <WeatherInfo
+            cityName={cityName}
+            mainTemp={mainTemp}
+            maxTemp={maxTemp}
+            minTemp={minTemp}
+            windSpeed={windSpeed}
+            weatherDesc={weatherDesc}
+            sunrise={sunrise}
+            sunset={sunset}
+            weatherIcon={weatherIcon}
+          />
+          <Map />
+        </div>
       </div>
     );
   }
 
   toTimeString = (seconds) => {
-    const timeConverter = (new Date(seconds * 1000)).toUTCString().match(/(\d\d:\d\d:\d\d)/)[0];
+    const timeConverter = new Date(seconds * 1000)
+      .toUTCString()
+      .match(/(\d\d:\d\d:\d\d)/)[0];
     return timeConverter.slice(0, 5);
-  }
+  };
 
   getWeatherByCity = async (cityParam) => {
     const response = await axios.get(
@@ -66,19 +80,22 @@ class App extends Component {
     const sunriseRes = this.toTimeString(sunrise);
     const sunsetRes = this.toTimeString(sunset);
     const weatherIconRes = weather[0].icon;
-    this.setState({
-      cityName: cityNameRes,
-      mainTemp: mainTempRes,
-      maxTemp: maxTempRes,
-      minTemp: minTempRes,
-      windSpeed: windSpeedRes,
-      weatherDesc: weatherDescRes,
-      sunrise: sunriseRes,
-      sunset: sunsetRes,
-      weatherIcon: weatherIconRes
-    }, () => {
-      console.log(this.state.weatherIcon);
-    })
+    this.setState(
+      {
+        cityName: cityNameRes,
+        mainTemp: mainTempRes,
+        maxTemp: maxTempRes,
+        minTemp: minTempRes,
+        windSpeed: windSpeedRes,
+        weatherDesc: weatherDescRes,
+        sunrise: sunriseRes,
+        sunset: sunsetRes,
+        weatherIcon: weatherIconRes
+      },
+      () => {
+        console.log(this.state.weatherIcon);
+      }
+    );
   };
 }
 

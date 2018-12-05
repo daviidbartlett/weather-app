@@ -7,7 +7,7 @@ class CityInput extends Component {
   };
   render() {
     return (
-      <div>
+      <div id="input">
         <form type="submit" onSubmit={this.handleSubmit}>
           <input
             type="text"
@@ -34,6 +34,6 @@ class CityInput extends Component {
 
 CityInput.propTypes = {
   getWeatherByCity: PropTypes.func.isRequired
-}
+};
 
 export default CityInput;

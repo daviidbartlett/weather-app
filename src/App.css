@@ -1,7 +1,42 @@
 .App {
   text-align: center;
+  background: #d6dbd2;
 }
 
-.mapid { 
-  height: 180px; 
+#map {
+  height: 400px;
+  width: 400px;
+}
+
+#container {
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 60%;
+}
+#item {
+  background-color: #e75a7c;
+  font-family: "Source Sans Pro", sans-serif;
+  list-style-type: none;
+  flex-grow: 1;
+  border-bottom-left-radius: 20px;
+  color: #2a3f4b;
+}
+#city {
+  flex-grow: 1;
+  font-size: 2em;
+  margin-top: 3px;
+}
+
+#input {
+  display: flex;
+  justify-content: center;
+  background: #2a3f4b;
+  padding-top: 10px;
+  width: 100%;
+  padding-bottom: 10px;
+
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
