@@ -49,7 +49,7 @@ class App extends Component {
             sunset={sunset}
             weatherIcon={weatherIcon}
           />
-          <Map coords={coords} />
+          <Map coords={coords} addNewState={this.addNewState} />
         </div>
       </div>
     );
@@ -86,24 +86,23 @@ class App extends Component {
     const lonRes = lon;
     const latRes = lat;
 
-    this.setState(
-      {
-        cityName: cityNameRes,
-        mainTemp: mainTempRes,
-        maxTemp: maxTempRes,
-        minTemp: minTempRes,
-        windSpeed: windSpeedRes,
-        weatherDesc: weatherDescRes,
-        sunrise: sunriseRes,
-        sunset: sunsetRes,
-        weatherIcon: weatherIconRes,
-        coords: [+latRes, +lonRes]
-      },
-      () => {
-        console.log(this.state.coords);
-      }
-    );
+    this.setState({
+      cityName: cityNameRes,
+      mainTemp: mainTempRes,
+      maxTemp: maxTempRes,
+      minTemp: minTempRes,
+      windSpeed: windSpeedRes,
+      weatherDesc: weatherDescRes,
+      sunrise: sunriseRes,
+      sunset: sunsetRes,
+      weatherIcon: weatherIconRes,
+      coords: [+latRes, +lonRes]
+    });
   };
+  addNewState = (thing) => {
+    console.log("XXXXXXXXX", thing);
+  };
+
   onMapClick = () => {
     this.map.on("click", function(e) {
       alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng);

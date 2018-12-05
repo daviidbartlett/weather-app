@@ -38,10 +38,11 @@ class Map extends React.Component {
       ]
     });
   };
-
-  onMapClick = (event) => {
-    this.map.on("click", function(e) {
-      alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng);
+  onMapClick = () => {
+    this.map.on("click", (e) => {
+      const foo = e.latlng;
+      // console.log(foo);
+      this.props.addNewState(foo);
     });
   };
   render() {
